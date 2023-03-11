@@ -45,4 +45,9 @@ public class RecipeServiceImpl implements RecipeService{
         else
             throw new NullPointerException("RECEIPT CAN'T BE ADDED, BECAUSE USER DOESN'T EXIT BY CURRENT ID: " + receiptDto.getUserId());
     }
+
+    @Override
+    public List<Recept> findAllByUserId(Integer id) {
+        return repository.findAllByUser_Id(id);
+    }
 }

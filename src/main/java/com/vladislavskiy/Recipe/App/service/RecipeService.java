@@ -10,5 +10,6 @@ import java.util.List;
 public interface RecipeService {
     Recept getReceiptById(final Integer id);
     List<Recept> findAll();
+    List<Recept> findAllByUserId(Integer id);
     void addReceiptForCurrentUser(ReceiptDto receiptDto);
 }

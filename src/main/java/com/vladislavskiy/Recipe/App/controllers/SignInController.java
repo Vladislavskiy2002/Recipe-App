@@ -14,7 +14,7 @@ public class SignInController {
     @Autowired
     UserRepository userRepository;
     @GetMapping("/signIn")
-    public String getSignUp()
+    public String getSignIn()
     {
         log.info("METHOD public String getSignIn()");
         return "signIn_page";
