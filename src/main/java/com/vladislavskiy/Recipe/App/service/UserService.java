@@ -8,4 +8,6 @@ public interface UserService {
     User getUserById(final Integer id);
     List<User> getAllUsers();
     void addUser(User user);
+    User getByEmail(final String email);
+    User getAuthUser();
 }

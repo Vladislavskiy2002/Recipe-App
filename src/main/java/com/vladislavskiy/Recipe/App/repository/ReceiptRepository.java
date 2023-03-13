@@ -12,4 +12,5 @@ public interface ReceiptRepository extends JpaRepository<Recept,Integer> {
     Optional<Recept> findById(Integer id);
     List<Recept> findAllByUser_Id(Integer id);
     List<Recept> findAll();
+    void delete(Recept recept);
 }

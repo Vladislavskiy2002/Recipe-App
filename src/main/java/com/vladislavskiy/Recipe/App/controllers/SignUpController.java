@@ -29,6 +29,10 @@ public class SignUpController {
     @PostMapping("/signUp")
     public String signUpUser(User user)
     {
+        if(userRepository.getByEmail(user.getEmail()) != null) {
+            System.out.println("EMAIL: " + user.getEmail() + " is already exist"); /// TODO: 11.03.2023 зробити так щоб це висвічувало у формі червоним кольором 
+            return "redirect:/signUp";
+        }
         user.setHashPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/signUp";

@@ -19,6 +19,16 @@
                 <input type = "submit" value = "All my recipes"/>
             </td>
         </form>
+        <form method="get"action="/receipt/allRecipes">
+            <td>
+                <input type = "submit" value = "All recipes"/>
+            </td>
+        </form>
+        <form method="get"action="/receipt/addRecipe">
+            <td>
+                <input type = "submit" value = "Add Recipe"/>
+            </td>
+        </form>
     </table>
 </div>
 </body>

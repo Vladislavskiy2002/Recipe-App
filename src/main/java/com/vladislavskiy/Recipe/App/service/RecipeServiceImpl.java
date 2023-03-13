@@ -19,9 +19,6 @@ import java.util.List;
 public class RecipeServiceImpl implements RecipeService{
     @Autowired
     private ReceiptRepository repository;
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     public Recept getReceiptById(final Integer id) {
         return repository.findById(id).get();
@@ -31,23 +28,21 @@ public class RecipeServiceImpl implements RecipeService{
     public List<Recept> findAll() {
        return repository.findAll();
     }
-    @Override
-    public void addReceiptForCurrentUser(ReceiptDto receiptDto)
-    {
-        Recept recept = new Recept();
-        User user = userRepository.getById(receiptDto.getUserId());
-        if(user!= null) {
-            recept.setName(receiptDto.getName());
-            recept.setDescription(receiptDto.getDescription());
-            recept.setUser(user);
-            repository.save(recept);
-        }
-        else
-            throw new NullPointerException("RECEIPT CAN'T BE ADDED, BECAUSE USER DOESN'T EXIT BY CURRENT ID: " + receiptDto.getUserId());
-    }
 
     @Override
     public List<Recept> findAllByUserId(Integer id) {
         return repository.findAllByUser_Id(id);
     }
+
+    @Override
+    public void addRecipe(Recept recept) {
+        repository.save(recept);
+    }
+
+    @Override
+    public void deleteRecipe(Recept recept)
+    {
+        repository.delete(recept);
+    }
+
 }
