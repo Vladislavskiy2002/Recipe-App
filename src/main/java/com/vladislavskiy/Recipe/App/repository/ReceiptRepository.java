@@ -8,13 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReceiptRepository extends JpaRepository<Recept, Integer> {
+public interface ReceiptRepository extends JpaRepository<Recept,Integer> {
     Optional<Recept> findById(Integer id);
-
     List<Recept> findAllByUser_Id(Integer id);
-
     List<Recept> findAll();
-
     void delete(Recept recept);
-
 }

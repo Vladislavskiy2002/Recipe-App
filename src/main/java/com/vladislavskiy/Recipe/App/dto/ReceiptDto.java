@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class ReceiptDto {
+    private Integer userId;
     private String name;
     private String description;
-    private String productName;
-    private Integer weight;
 }
