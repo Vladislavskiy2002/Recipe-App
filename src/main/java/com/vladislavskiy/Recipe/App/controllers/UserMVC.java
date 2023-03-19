@@ -1,38 +1,55 @@
 package com.vladislavskiy.Recipe.App.controllers;
 
+import com.vladislavskiy.Recipe.App.entity.Role;
 import com.vladislavskiy.Recipe.App.entity.User;
-import com.vladislavskiy.Recipe.App.repository.UserRepository;
-import com.vladislavskiy.Recipe.App.security.details.UserDetailsImpl;
-import com.vladislavskiy.Recipe.App.security.details.UserDetailsServiceImpl;
 import com.vladislavskiy.Recipe.App.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
-@Controller("/mvc")
+@Controller()
+@RequestMapping("/mvc")
 public class UserMVC {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder encoder;
+
     @GetMapping("/user")
-    public String getUser(Model model)
-    {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetailsImpl) {
-            username = ((UserDetailsImpl)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println(username);
+    public String getUser(Principal principal, Model model) {
+        String username = principal.getName();
         User user = userService.getByEmail(username);
+        List<Role> roles = user.getRoles().stream().toList();
+        model.addAttribute("roles", roles);
+
+        //user.setEnabled(true); todo: зробити поле enable після того як очищу базу данних
         model.addAttribute("User", user);
-        return "users_page";
+        return "users";
+    }
+
+    @GetMapping("/admin/allUsers")
+    public String allUsers(Model model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("Users", users);
+        return "all-users";
+    }
+
+    @GetMapping("/admin/deleteUser")
+    public String deleteUser(User idUser) {
+        Optional<User> user = userService.getUserById(idUser.getId());
+        if (user.isPresent()) {
+            System.out.println(user.get());
+            userService.deleteUser(user.get());
+            return "redirect:/mvc/admin/allUsers";
+        } else {
+            throw new NullPointerException("OBJECT USER IS NULL!!!");
+        }
     }
 }
