@@ -8,13 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class RecipeAppApplication {
-@Bean
-public PasswordEncoder passwordEncoder()
-{
-	return new BCryptPasswordEncoder();
-}
-	public static void main(String[] args) {
-		SpringApplication.run(RecipeAppApplication.class, args);
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(RecipeAppApplication.class, args);
+    }
 
 }

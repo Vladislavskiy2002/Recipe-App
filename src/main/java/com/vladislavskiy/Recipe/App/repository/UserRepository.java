@@ -5,12 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAll();
-    User getById(Integer id);
+
     User findByEmail(final String email);
 
-    User getByEmail(String email);
+    Optional<User> findById(Integer id);
+
+    void delete(User user);
 }
