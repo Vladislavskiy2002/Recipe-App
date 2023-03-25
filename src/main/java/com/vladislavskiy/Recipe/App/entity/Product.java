@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,11 +17,20 @@ import java.util.Set;
 @Setter
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String name;
     private Integer weight;
+@OnDelete(action = OnDeleteAction.CASCADE)
+@ManyToOne(cascade = CascadeType.ALL)
+private Recept recept;
 
-    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
-    private Set<Recept> recepts;
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 }

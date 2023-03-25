@@ -1,4 +1,4 @@
-package com.vladislavskiy.Recipe.App.service;
+package com.vladislavskiy.Recipe.App.service.impl;
 
 import com.vladislavskiy.Recipe.App.entity.Role;
 import com.vladislavskiy.Recipe.App.entity.User;
@@ -6,12 +6,14 @@ import com.vladislavskiy.Recipe.App.repository.ReceiptRepository;
 import com.vladislavskiy.Recipe.App.repository.RoleRepository;
 import com.vladislavskiy.Recipe.App.repository.UserRepository;
 import com.vladislavskiy.Recipe.App.security.details.UserDetailsImpl;
+import com.vladislavskiy.Recipe.App.service.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;

@@ -14,8 +14,6 @@ public class SignInController {
 
     @GetMapping("/signIn")
     public String getSignIn() {
-
-
         log.info("METHOD public String getSignIn()");
         return "signIn";
     }

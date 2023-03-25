@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "recepts")
@@ -14,25 +15,17 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recept {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Recept{
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     private String name;
     private String description;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "Recepts_Products",
-            joinColumns = @JoinColumn(
-                    name = "recept_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "product_id", referencedColumnName = "id"))
-    private List<Product> products;
-
+@OneToMany(mappedBy = "recept", cascade = CascadeType.ALL)
+private List<Product> products;
     @Override
     public String toString() {
         return "Recept{" +
@@ -42,4 +35,10 @@ public class Recept {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    public void removeAllProducts()
+    {
+        products = new ArrayList<>();
+    }
+
 }
