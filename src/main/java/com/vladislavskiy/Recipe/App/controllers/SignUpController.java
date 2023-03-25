@@ -33,12 +33,10 @@ public class SignUpController {
     @PostMapping("/signUp")
     public String signUpUser(User user) {
         if (userRepository.findByEmail(user.getEmail()) != null) {
-            System.out.println("EMAIL: " + user.getEmail() + " is already exist"); /// TODO: 11.03.2023 зробити так щоб це висвічувало у формі червоним кольором 
             return "redirect:/signUp";
         }
         user.setHashPassword(encoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-        // user.setEnabled(true); todo: зробити поле enable після того як очищу базу данних
         userRepository.save(user);
         return "redirect:/mvc/user";
     }

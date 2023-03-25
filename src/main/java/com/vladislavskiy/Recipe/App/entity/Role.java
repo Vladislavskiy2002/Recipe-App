@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,15 +22,21 @@ public class Role {
     private Long id;
 
     private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
+    private List<User> users;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "roles_privileges",
             joinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"),
+                    name = "role_id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "privilege_id", referencedColumnName = "id"))
+                    name = "privilege_id"))
     private Collection<Privilege> privileges;
+
+
+   public void addUser(User user) {
+       users.add(user);
+    }
 }
