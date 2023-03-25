@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recept{
+public class Recept {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     private Integer id;
@@ -24,8 +24,9 @@ public class Recept{
     private User user;
     private String name;
     private String description;
-@OneToMany(mappedBy = "recept", cascade = CascadeType.ALL)
-private List<Product> products;
+    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL)
+    private List<Product> products;
+
     @Override
     public String toString() {
         return "Recept{" +
@@ -36,8 +37,7 @@ private List<Product> products;
                 '}';
     }
 
-    public void removeAllProducts()
-    {
+    public void removeAllProducts() {
         products = new ArrayList<>();
     }
 

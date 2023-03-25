@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @Slf4j
 public class SignInController {
-    @Autowired
-    UserRepository userRepository;
-
     @GetMapping("/signIn")
     public String getSignIn() {
         log.info("METHOD public String getSignIn()");

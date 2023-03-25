@@ -21,12 +21,6 @@ import java.util.Optional;
 public class UserMVC {
     @Autowired
     private UserService userService;
-    @Autowired
-    private PasswordEncoder encoder;
-    @Autowired
-    private  RoleRepository roleRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @GetMapping("/user")
     public String getUser(Principal principal, Model model) {
@@ -55,4 +49,4 @@ public class UserMVC {
             throw new NullPointerException("OBJECT USER IS NULL!!!");
         }
     }
-    }
+}

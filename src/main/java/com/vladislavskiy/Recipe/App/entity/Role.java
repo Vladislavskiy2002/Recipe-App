@@ -23,7 +23,7 @@ public class Role {
 
     private String name;
     @ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
+            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<User> users;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -36,7 +36,7 @@ public class Role {
     private Collection<Privilege> privileges;
 
 
-   public void addUser(User user) {
-       users.add(user);
+    public void addUser(User user) {
+        users.add(user);
     }
 }

@@ -16,10 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 //@Controller(value = "customUserDetailsService")
 //@Transactional
@@ -62,7 +59,7 @@ public class UserDetailsServiceImpl extends UserDetailsImpl implements UserDetai
         if (user == null) {
             return new org.springframework.security.core.userdetails.User(
                     " ", " ", true, true, true, true,
-                    getAuthorities(Arrays.asList(
+                    getAuthorities(Collections.singletonList(
                             roleRepository.findByName("ROLE_USER"))));
         }
 

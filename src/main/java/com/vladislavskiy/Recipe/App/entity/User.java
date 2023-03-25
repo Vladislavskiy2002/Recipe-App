@@ -1,6 +1,5 @@
 package com.vladislavskiy.Recipe.App.entity;
 
-import com.vladislavskiy.Recipe.App.controllers.UserMVC;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,10 +26,10 @@ public class User implements Comparable<User> {
     @Transient
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recept> userRecepts;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
+            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
@@ -53,6 +52,7 @@ public class User implements Comparable<User> {
     public void addRole(Role role) {
         this.roles.add(role);
     }
+
     @Override
     public int compareTo(User user) {
         return this.getName().compareTo(user.name);

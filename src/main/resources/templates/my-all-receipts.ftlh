@@ -12,12 +12,12 @@
     <tr>
         <th>
 <form method="get" action="/receipt/receipts/findByName">
-    <button type="submit">Find by receipt name</button>
+    <button class = "btn btn-dark" type="submit">Find by receipt name</button>
 </form>
         </th>
         <th>
 <form method="get" action="/receipt/receipts/findByProductName">
-    <button type="submit">Find by product </button>
+    <button class = "btn btn-dark" type="submit">Find by product </button>
 </form>
         </th>
 
@@ -35,11 +35,11 @@
                 <form method="get" action="/receipt/mySortedByNameRecipes">
                     <#if sortOrder == 'asc'>
                         <input type="hidden" class="text" value='desc'>
-                        <button type="submit">Name</button>
+                        <button class = "btn btn-dark" type="submit">Name</button>
                     </#if>
                     <#if sortOrder == 'desc'>
                         <input type="hidden" class="text" value='asc'>
-                        <button type="submit" class="dar">Name</button>
+                        <button class = "btn btn-dark" type="submit" class="dar">Name</button>
                     </#if>
                 </form>
             </th>
@@ -47,11 +47,11 @@
                 <form method="get" action="/receipt/mySortedByAuthorRecipes">
                     <#if sortOrder == 'asc'>
                         <input type="hidden" class="text" value='desc'>
-                        <button type="submit">Author</button>
+                        <button class = "btn btn-dark" type="submit">Author</button>
                     </#if>
                     <#if sortOrder == 'desc'>
                         <input type="hidden" class="text" value='asc'>
-                        <button type="submit" class="dar">Author</button>
+                        <button class = "btn btn-dark" type="submit" class="dar">Author</button>
                     </#if>
                 </form>
             </th>

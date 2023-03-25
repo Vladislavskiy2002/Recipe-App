@@ -1,6 +1,5 @@
 package com.vladislavskiy.Recipe.App.service.impl;
 
-import com.vladislavskiy.Recipe.App.comparator.ReceptNameComparator;
 import com.vladislavskiy.Recipe.App.entity.Recept;
 import com.vladislavskiy.Recipe.App.repository.ReceiptRepository;
 import com.vladislavskiy.Recipe.App.service.RecipeService;
@@ -49,12 +48,22 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void sortRecipes(List<Recept> recepts, Comparator<Recept>comparator, String sortOrder) {
+    public void sortRecipes(List<Recept> recepts, Comparator<Recept> comparator, String sortOrder) {
         if (sortOrder.equalsIgnoreCase("desc")) {
             Comparator comparator2 = Collections.reverseOrder(comparator);
-            Collections.sort(recepts,comparator2);
+            Collections.sort(recepts, comparator2);
         } else {
-            Collections.sort(recepts,comparator);
+            Collections.sort(recepts, comparator);
         }
+    }
+
+    @Override
+    public List<Recept> findAllByUser_IdAndName(Integer id, String name) {
+        return repository.findAllByUser_IdAndName(id, name);
+    }
+
+    @Override
+    public List<Recept> findAllByName(final String name) {
+        return repository.findAllByName(name);
     }
 }
