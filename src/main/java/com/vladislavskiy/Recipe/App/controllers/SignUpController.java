@@ -3,6 +3,7 @@ package com.vladislavskiy.Recipe.App.controllers;
 import com.vladislavskiy.Recipe.App.entity.User;
 import com.vladislavskiy.Recipe.App.repository.RoleRepository;
 import com.vladislavskiy.Recipe.App.repository.UserRepository;
+import com.vladislavskiy.Recipe.App.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Controller
 @Slf4j
 public class SignUpController {
     @Autowired
-    private UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -32,12 +34,12 @@ public class SignUpController {
 
     @PostMapping("/signUp")
     public String signUpUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userService.getByEmail(user.getEmail()) != null) {
             return "redirect:/signUp";
         }
         user.setHashPassword(encoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-        userRepository.save(user);
+        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
+        userService.addUser(user);
         return "redirect:/mvc/user";
     }
 }

@@ -15,12 +15,12 @@
         </th>
         <th>
             <form method="get" action="/receipt/allReceipts/findByName">
-                <button type="submit">Find by receipt name</button>
+                <button class = "btn btn-dark" type="submit">Find by receipt name</button>
             </form>
         </th>
         <th>
             <form method="get" action="/receipt/allReceipts/findByProductName">
-                <button type="submit">Find by product </button>
+                <button class = "btn btn-dark" type="submit">Find by product </button>
             </form>
         </th>
     </tr>

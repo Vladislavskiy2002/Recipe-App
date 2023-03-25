@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +46,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
     public User getAuthUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Override
     public void createUserWithRoles(String username, String password, List<String> roleNames) {
         User user = new User();
         user.setName(username);
@@ -77,8 +78,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
     public void deleteUser(User user) {
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> findAllByName(final String name) {
+        return userRepository.findByName(name);
     }
 }

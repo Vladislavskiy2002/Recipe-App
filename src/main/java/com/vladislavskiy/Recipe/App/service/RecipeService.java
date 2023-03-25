@@ -16,5 +16,9 @@ public interface RecipeService {
 
     void deleteRecipe(Recept recept);
 
-    public void sortRecipes(List<Recept> recepts, Comparator<Recept> comparator, String sortOrder);
+    void sortRecipes(List<Recept> recepts, Comparator<Recept> comparator, String sortOrder);
+
+    List<Recept> findAllByUser_IdAndName(Integer id, String name);
+
+    List<Recept> findAllByName(final String name);
 }

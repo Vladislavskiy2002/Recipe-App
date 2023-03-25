@@ -19,4 +19,6 @@ public interface UserService {
     void createUserWithRoles(String username, String password, List<String> roleNames);
 
     void deleteUser(User user);
+
+    List<User> findAllByName(final String name);
 }

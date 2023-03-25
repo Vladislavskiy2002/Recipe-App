@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity(name = "products")
 @NoArgsConstructor
@@ -21,9 +20,9 @@ public class Product {
     private Integer id;
     private String name;
     private Integer weight;
-@OnDelete(action = OnDeleteAction.CASCADE)
-@ManyToOne(cascade = CascadeType.ALL)
-private Recept recept;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Recept recept;
 
     @Override
     public String toString() {

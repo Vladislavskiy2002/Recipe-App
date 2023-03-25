@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -49,7 +50,7 @@ public class SetupDataLoader implements
         List<Privilege> adminPrivileges = Arrays.asList(
                 readPrivilege, writePrivilege);
         createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-        createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
+        createRoleIfNotFound("ROLE_USER", Collections.singletonList(readPrivilege));
 
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         User user = new User();
@@ -57,7 +58,7 @@ public class SetupDataLoader implements
         user.setSurname("Test");
         user.setHashPassword(passwordEncoder.encode("test"));
         user.setEmail("test@test.com");
-        user.setRoles(Arrays.asList(adminRole));
+        user.setRoles(Collections.singletonList(adminRole));
 
         alreadySetup = true;
     }
