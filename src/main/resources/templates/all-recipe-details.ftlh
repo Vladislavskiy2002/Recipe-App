@@ -42,6 +42,10 @@
         </#list>
         </tbody>
     </table>
+    <h2>Description:</h2>
+    <td>${recipe.description}</td>
+    <br>
+    <br>
 </div>
 <form method="get" action="/receipt/allRecipes">
     <button class="btn btn-primary" type="submit">Previous Page</button>

@@ -2,11 +2,8 @@ package com.vladislavskiy.Recipe.App.controllers;
 
 import com.vladislavskiy.Recipe.App.entity.Role;
 import com.vladislavskiy.Recipe.App.entity.User;
-import com.vladislavskiy.Recipe.App.repository.RoleRepository;
-import com.vladislavskiy.Recipe.App.repository.UserRepository;
 import com.vladislavskiy.Recipe.App.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +43,7 @@ public class UserMVC {
             userService.deleteUser(user.get());
             return "redirect:/mvc/admin/allUsers";
         } else {
-            throw new NullPointerException("OBJECT USER IS NULL!!!");
+            throw new RuntimeException("OBJECT USER IS NULL!!!");
         }
     }
 }

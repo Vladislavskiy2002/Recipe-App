@@ -6,7 +6,7 @@ import com.vladislavskiy.Recipe.App.entity.Recept;
 import java.util.List;
 
 public interface ProductService {
-    void save(Product product);
+    Product save(Product product);
 
     void deleteAll(List<Product> products);
 

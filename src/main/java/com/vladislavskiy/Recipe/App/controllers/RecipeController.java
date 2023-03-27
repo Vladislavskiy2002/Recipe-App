@@ -9,8 +9,8 @@ import com.vladislavskiy.Recipe.App.entity.User;
 import com.vladislavskiy.Recipe.App.service.ProductService;
 import com.vladislavskiy.Recipe.App.service.RecipeService;
 import com.vladislavskiy.Recipe.App.service.UserService;
+import com.vladislavskiy.Recipe.App.util.SortUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,57 +21,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 @RequestMapping("/receipt")
 public class RecipeController {
-    @Autowired
-    private RecipeService recipeService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProductService productService;
+    private final RecipeService recipeService;
+    private final UserService userService;
+    private final ProductService productService;
 
-    static String sortOrder = "asc";
+    public RecipeController(RecipeService recipeService, UserService userService, ProductService productService) {
+        this.recipeService = recipeService;
+        this.userService = userService;
+        this.productService = productService;
+    }
+
+    private static String sortOrder = "asc";
 
     @GetMapping("/myRecipes")
     private ModelAndView getUsersReceipts(Principal principal) {
-        String username = principal.getName();
-        User user = userService.getByEmail(username);
+        User user = userService.getByEmail(principal.getName());
         List<Recept> recepts = recipeService.findAllByUserId(user.getId());
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("Recepts", recepts);
-        model.put("sortOrder", sortOrder);
-        if (sortOrder.equals("asc")) {
-            sortOrder = "desc";
-        } else {sortOrder = "asc";}
-        return new ModelAndView("my-all-receipts", model);
-    }
-
-    @GetMapping("/mySortedByNameRecipes")
-    private ModelAndView getSortedByNameReceipts(Principal principal) {
-        String username = principal.getName();
-        User user = userService.getByEmail(username);
-        List<Recept> recepts = recipeService.findAllByUserId(user.getId());
-        recipeService.sortRecipes(recepts, new ReceptNameComparator(), sortOrder);
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("Recepts", recepts);
-        model.put("sortOrder", sortOrder);
-        if (sortOrder.equals("asc")) {
-            sortOrder = "desc";
-        } else {sortOrder = "asc";}
-        return new ModelAndView("my-all-receipts", model);
-    }
-
-    @GetMapping("/mySortedByAuthorRecipes")
-    private ModelAndView getSortedByAuthorMyReceipts(Principal principal) {
-        String username = principal.getName();
-        User user = userService.getByEmail(username);
-        List<Recept> recepts = recipeService.findAllByUserId(user.getId());
-        recipeService.sortRecipes(recepts, new ReceptAuthorComparator(), sortOrder);
         Map<String, Object> model = new HashMap<>();
         model.put("Recepts", recepts);
         model.put("sortOrder", sortOrder);
@@ -79,14 +51,46 @@ public class RecipeController {
             sortOrder = "desc";
         } else {
             sortOrder = "asc";
-        };
+        }
+        return new ModelAndView("my-all-receipts", model);
+    }
+
+    @GetMapping("/mySortedByNameRecipes")
+    private ModelAndView getSortedByNameReceipts(Principal principal) {
+        User user = userService.getByEmail(principal.getName());
+        List<Recept> recepts = recipeService.findAllByUserId(user.getId());
+        SortUtil.sortRecipes(recepts, new ReceptNameComparator(), sortOrder);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("Recepts", recepts);
+        model.put("sortOrder", sortOrder);
+        if (sortOrder.equals("asc")) {
+            sortOrder = "desc";
+        } else {
+            sortOrder = "asc";
+        }
+        return new ModelAndView("my-all-receipts", model);
+    }
+
+    @GetMapping("/mySortedByAuthorRecipes")
+    private ModelAndView getSortedByAuthorMyReceipts(Principal principal) {
+        User user = userService.getByEmail(principal.getName());
+        List<Recept> recepts = recipeService.findAllByUserId(user.getId());
+        SortUtil.sortRecipes(recepts, new ReceptAuthorComparator(), sortOrder);
+        Map<String, Object> model = new HashMap<>();
+        model.put("Recepts", recepts);
+        model.put("sortOrder", sortOrder);
+        if (sortOrder.equals("asc")) {
+            sortOrder = "desc";
+        } else {
+            sortOrder = "asc";
+        }
         return new ModelAndView("my-all-receipts", model);
     }
 
     @GetMapping("/allRecipes")
     private String getAllReceipts(Model model, Principal principal) {
-        String name = principal.getName();
-        User user = userService.getByEmail(name);
+        User user = userService.getByEmail(principal.getName());
         List<Role> roles = user.getRoles().stream().toList();
         model.addAttribute("roles", roles);
         List<Recept> recepts = recipeService.findAll();
@@ -97,10 +101,9 @@ public class RecipeController {
 
     @GetMapping("/allSortedByAuthorRecipes")
     private ModelAndView getSortedByAuthorAllReceipts(Principal principal) {
-        String username = principal.getName();
-        User user = userService.getByEmail(username);
+        User user = userService.getByEmail(principal.getName());
         List<Recept> recepts = recipeService.findAll();
-        recipeService.sortRecipes(recepts, new ReceptAuthorComparator(), sortOrder);
+        SortUtil.sortRecipes(recepts, new ReceptAuthorComparator(), sortOrder);
         List<Role> roles = user.getRoles().stream().toList();
 
         Map<String, Object> model = new HashMap<>();
@@ -117,10 +120,9 @@ public class RecipeController {
 
     @GetMapping("/allSortedByNameRecipes")
     private ModelAndView getSortedByNameAllReceipts(Principal principal) {
-        String username = principal.getName();
-        User user = userService.getByEmail(username);
+        User user = userService.getByEmail(principal.getName());
         List<Recept> recepts = recipeService.findAll();
-        recipeService.sortRecipes(recepts, new ReceptNameComparator(), sortOrder);
+        SortUtil.sortRecipes(recepts, new ReceptNameComparator(), sortOrder);
         List<Role> roles = user.getRoles().stream().toList();
 
         Map<String, Object> model = new HashMap<>();
@@ -143,16 +145,17 @@ public class RecipeController {
 
     @PostMapping("/recipes/new")
     public String createNewRecipe(Principal principal, @ModelAttribute Recept recept) {
+        Recept newRecept = new Recept();
         if (recept.getProducts() != null) {
-            Recept newRecept = new Recept();
-            newRecept.setProducts(productService.addProducts(recept,newRecept));
-            newRecept.setName(recept.getName());
-            newRecept.setDescription(recept.getDescription());
-            newRecept.setUser(userService.getByEmail(principal.getName()));
-            recipeService.addRecipe(newRecept);
+            newRecept.setProducts(productService.addProducts(recept, newRecept));
         } else {
             recept.setProducts(new ArrayList<>());
         }
+        newRecept.setName(recept.getName());
+        newRecept.setDescription(recept.getDescription());
+        newRecept.setUser(userService.getByEmail(principal.getName()));
+        recipeService.addRecipe(newRecept);
+
         return "redirect:/mvc/user";
     }
 
@@ -170,7 +173,11 @@ public class RecipeController {
     public String updateRecipe(@PathVariable Integer id, @ModelAttribute Recept recept, Principal principal) {
         Recept currentRecept = recipeService.getReceiptById(id);
         productService.deleteAll(currentRecept.getProducts());
-        currentRecept.setProducts(productService.addProducts(recept,currentRecept));
+        if (recept.getProducts() != null) {
+            currentRecept.setProducts(productService.addProducts(recept, currentRecept));
+        } else {
+            currentRecept.setProducts(new ArrayList<>());
+        }
         currentRecept.setName(recept.getName());
         currentRecept.setDescription(recept.getDescription());
         currentRecept.setUser(userService.getByEmail(principal.getName()));
@@ -252,13 +259,19 @@ public class RecipeController {
     }
 
     @PostMapping("/receipts/findByProductName")
-    public String findReceptByProductName(Model model, String name) {
-        List<Product> products = productService.findAllByName(name);
-        List<Recept> recepts = new ArrayList<>();
+    public String findReceptByProductName(Principal principal, Model model, String name) {
+        User user = userService.getByEmail(principal.getName());
+        List<Recept> recepts = recipeService.findAllByUserId(user.getId());
+
+        List<Product> products = recepts.stream()
+                .map(recept -> recept.getProducts()).flatMap(products1 -> products1.stream()
+                        .filter(product -> product.getName().equals(name))).collect(Collectors.toList());
+
+        List<Recept> receptsByName = new ArrayList<>();
         for (Product product : products) {
-            recepts.add(product.getRecept());
+            receptsByName.add(product.getRecept());
         }
-        model.addAttribute("Recepts", recepts);
+        model.addAttribute("Recepts", receptsByName);
         model.addAttribute("sortOrder", sortOrder = "asc");
         return "my-all-receipts";
     }

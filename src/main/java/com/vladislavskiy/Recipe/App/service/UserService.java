@@ -14,9 +14,6 @@ public interface UserService {
 
     User getByEmail(final String email);
 
-    User getAuthUser();
-
-    void createUserWithRoles(String username, String password, List<String> roleNames);
 
     void deleteUser(User user);
 
