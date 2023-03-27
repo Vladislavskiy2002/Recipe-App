@@ -16,8 +16,8 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
 
     @Override
-    public void save(Product product) {
-        productRepository.save(product);
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 
 
@@ -30,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllByName(String name) {
         return productRepository.findAllByName(name);
     }
+
     @Override
     public List<Product> addProducts(Recept recept, Recept newRecept) {
         List<Product> products = new ArrayList<>();

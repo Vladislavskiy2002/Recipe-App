@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @AllArgsConstructor
@@ -45,16 +43,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public void deleteRecipe(Recept recept) {
         repository.delete(recept);
-    }
-
-    @Override
-    public void sortRecipes(List<Recept> recepts, Comparator<Recept> comparator, String sortOrder) {
-        if (sortOrder.equalsIgnoreCase("desc")) {
-            Comparator comparator2 = Collections.reverseOrder(comparator);
-            Collections.sort(recepts, comparator2);
-        } else {
-            Collections.sort(recepts, comparator);
-        }
     }
 
     @Override
