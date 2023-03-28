@@ -59,21 +59,19 @@ public class RecipeServiceImpl implements RecipeService {
     public List<Recept> findAllByName(final String name) {
         return repository.findAllByNameContainingIgnoreCase(name);
     }
+
     @Override
-    public List<Recept> findAllReceptsByProductName(final String name)
-    {
+    public List<Recept> findAllReceptsByProductName(final String name) {
         List<Product> products = productService.findAllByName(name);
         List<Recept> recepts = new ArrayList<>();
         for (Product product : products) {
             boolean isHasRecept = false;
-            for(Recept recept :recepts)
-            {
-                if(recept.equals(product.getRecept()))
-                {
+            for (Recept recept : recepts) {
+                if (recept.equals(product.getRecept())) {
                     isHasRecept = true;
                 }
             }
-            if(!isHasRecept)
+            if (!isHasRecept)
                 recepts.add(product.getRecept());
         }
         return recepts;

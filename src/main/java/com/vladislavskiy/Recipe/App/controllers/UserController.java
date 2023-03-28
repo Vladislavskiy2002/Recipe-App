@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Controller()
 @RequestMapping("/mvc")
-public class UserMVC {
+public class UserController {
     @Autowired
     private UserService userService;
 

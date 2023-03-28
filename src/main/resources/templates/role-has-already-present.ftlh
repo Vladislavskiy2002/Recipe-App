@@ -1,5 +1,5 @@
 <td>
-USER: "${user.name}" with ID: "${user.id}" HAS ALREADY HAVE THIS ROLE
+    USER: "${user.name}" with ID: "${user.id}" HAS ALREADY HAVE THIS ROLE
 </td>
 
 <form method="get" action="/mvc/admin/allUsers">

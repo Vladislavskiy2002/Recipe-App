@@ -18,5 +18,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByName(String name);
 
     void delete(User user);
+
     List<User> findAllByNameContainingIgnoreCase(String name);
 }
