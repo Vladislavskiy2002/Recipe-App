@@ -9,7 +9,7 @@
     <thead class="thead-dark">
     <tr>
         <th>
-            <form method="get" action="/receipt/receipts/findReceptByAuthorName">
+            <form method="get" action="/receipt/allReceipts/findReceptByAuthorName">
                 <button class = "btn btn-dark" type="submit">Find by author name</button>
             </form>
         </th>
@@ -33,7 +33,6 @@
             <!-- Table header -->
             <thead class="thead-dark">
             <tr>
-                <th>ID</th>
                 <th>
                     <form method="get" action="/receipt/allSortedByNameRecipes">
                         <#if sortOrder == 'asc'>
@@ -66,7 +65,6 @@
             <tbody>
             <#list Recepts as recept>
                 <tr>
-                    <td>${recept.id}</td>
                     <td>${recept.name}</td>
                     <td>${recept.user.name}</td>
                     <td>${recept.description}</td>

@@ -53,6 +53,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllByName(final String name) {
-        return userRepository.findByName(name);
+        return userRepository.findAllByNameContainingIgnoreCase(name);
     }
 }

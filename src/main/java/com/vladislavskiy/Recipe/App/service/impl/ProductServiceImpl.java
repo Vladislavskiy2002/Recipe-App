@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllByName(String name) {
-        return productRepository.findAllByName(name);
+        return productRepository.findAllByNameContainingIgnoreCase(name);
     }
 
     @Override

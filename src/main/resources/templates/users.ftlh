@@ -12,7 +12,6 @@
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -20,7 +19,6 @@
         </thead>
         <tbody>
         <tr>
-            <td>${User.id}</td>
             <td>${User.name}</td>
             <td>${User.surname}</td>
             <td>${User.email}</td>
