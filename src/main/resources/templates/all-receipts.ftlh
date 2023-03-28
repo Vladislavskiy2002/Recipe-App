@@ -10,17 +10,17 @@
     <tr>
         <th>
             <form method="get" action="/receipt/allReceipts/findReceptByAuthorName">
-                <button class = "btn btn-dark" type="submit">Find by author name</button>
+                <button class="btn btn-dark" type="submit">Find by author name</button>
             </form>
         </th>
         <th>
             <form method="get" action="/receipt/allReceipts/findByName">
-                <button class = "btn btn-dark" type="submit">Find by receipt name</button>
+                <button class="btn btn-dark" type="submit">Find by receipt name</button>
             </form>
         </th>
         <th>
             <form method="get" action="/receipt/allReceipts/findByProductName">
-                <button class = "btn btn-dark" type="submit">Find by product </button>
+                <button class="btn btn-dark" type="submit">Find by product</button>
             </form>
         </th>
     </tr>
@@ -37,7 +37,7 @@
                     <form method="get" action="/receipt/allSortedByNameRecipes">
                         <#if sortOrder == 'asc'>
                             <input type="hidden" class="text" value='desc'>
-                            <button type="submit"class="btn btn-dark">Name</button>
+                            <button type="submit" class="btn btn-dark">Name</button>
                         </#if>
                         <#if sortOrder == 'desc'>
                             <input type="hidden" class="text" value='asc'>
@@ -69,20 +69,20 @@
                     <td>${recept.user.name}</td>
                     <td>${recept.description}</td>
                     <td>
-                    <form method="get" action="/receipt/allRecipe/detailsRecipe">
-                        <input type="hidden" name="id" value="${recept.id}"/>
-                        <button class="btn btn-info" type="submit">Details</button>
-                    </form>
-                    <#list roles as role>
-                        <#if role.name == 'ROLE_ADMIN'>
+                        <form method="get" action="/receipt/allRecipe/detailsRecipe">
+                            <input type="hidden" name="id" value="${recept.id}"/>
+                            <button class="btn btn-info" type="submit">Details</button>
+                        </form>
+                        <#list roles as role>
+                            <#if role.name == 'ROLE_ADMIN'>
 
-                            <form method="get" action="/receipt/allRecipe/deleteRecipe">
+                                <form method="get" action="/receipt/allRecipe/deleteRecipe">
                                     <input type="hidden" name="id" value="${recept.id}"/>
-                                    <input class= "btn btn-danger" type="submit" value="delete Recipe"/>
-                            </form>
+                                    <input class="btn btn-danger" type="submit" value="delete Recipe"/>
+                                </form>
 
-                        </#if>
-                    </#list>
+                            </#if>
+                        </#list>
                     </td>
                 </tr>
             </#list>

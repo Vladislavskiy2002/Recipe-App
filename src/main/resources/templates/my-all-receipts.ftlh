@@ -11,14 +11,14 @@
     <thead class="thead-dark">
     <tr>
         <th>
-<form method="get" action="/receipt/receipts/findByName">
-    <button class = "btn btn-dark" type="submit">Find by receipt name</button>
-</form>
+            <form method="get" action="/receipt/receipts/findByName">
+                <button class="btn btn-dark" type="submit">Find by receipt name</button>
+            </form>
         </th>
         <th>
-<form method="get" action="/receipt/receipts/findByProductName">
-    <button class = "btn btn-dark" type="submit">Find by product </button>
-</form>
+            <form method="get" action="/receipt/receipts/findByProductName">
+                <button class="btn btn-dark" type="submit">Find by product</button>
+            </form>
         </th>
 
     </tr>
@@ -34,11 +34,11 @@
                 <form method="get" action="/receipt/mySortedByNameRecipes">
                     <#if sortOrder == 'asc'>
                         <input type="hidden" class="text" value='desc'>
-                        <button class = "btn btn-dark" type="submit">Name</button>
+                        <button class="btn btn-dark" type="submit">Name</button>
                     </#if>
                     <#if sortOrder == 'desc'>
                         <input type="hidden" class="text" value='asc'>
-                        <button class = "btn btn-dark" type="submit" class="dar">Name</button>
+                        <button class="btn btn-dark" type="submit" class="dar">Name</button>
                     </#if>
                 </form>
             </th>
@@ -46,11 +46,11 @@
                 <form method="get" action="/receipt/mySortedByAuthorRecipes">
                     <#if sortOrder == 'asc'>
                         <input type="hidden" class="text" value='desc'>
-                        <button class = "btn btn-dark" type="submit">Author</button>
+                        <button class="btn btn-dark" type="submit">Author</button>
                     </#if>
                     <#if sortOrder == 'desc'>
                         <input type="hidden" class="text" value='asc'>
-                        <button class = "btn btn-dark" type="submit" class="dar">Author</button>
+                        <button class="btn btn-dark" type="submit" class="dar">Author</button>
                     </#if>
                 </form>
             </th>

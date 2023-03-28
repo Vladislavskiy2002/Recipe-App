@@ -42,7 +42,7 @@
     var productCount = 1;
     var productsContainer = document.getElementById("products-container");
     var addProductButton = document.getElementById("add-product-button");
-    addProductButton.addEventListener("click", function() {
+    addProductButton.addEventListener("click", function () {
         var productDiv = document.createElement("div");
         productDiv.className = "form-row product-row";
         productDiv.innerHTML =
@@ -62,7 +62,7 @@
         productCount++;
     });
 
-    productsContainer.addEventListener("click", function(event) {
+    productsContainer.addEventListener("click", function (event) {
         if (event.target.classList.contains("remove-product-button")) {
             event.target.closest(".product-row").remove();
         }

@@ -23,17 +23,10 @@
                 <form method="get" action="/mvc/admin/deleteUser">
                     <td>
                         <input type="hidden" name="id" value="${user.id}"/>
-                        <input class= "btn btn-danger" type="submit" value="delete User"/>
+                        <input class="btn btn-danger" type="submit" value="delete User"/>
                     </td>
                 </form>
             </tr>
-            <!-- <form method="post" action="/mvc/admin/giveAdminRole">
-                <td>
-                    <input type="hidden" name="id" value="${user.id}"/>
-                    <input type="hidden" name="email" value="${user.email}"/>
-                    <input type="submit" value="give admin role"/>
-                </td>
-            </form> ТИМЧАСОВО НЕРОБОЧЕ ПОКИ НЕЗНАЙДУ ВИХІД З ЕНКОДЕРОМ-->
 
         </#list>
         <form method="get" action="/mvc/user">

@@ -35,15 +35,10 @@ public class SignUpController {
 
     @PostMapping("/signUp")
     public String signUpUser(@Valid User user, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors())
-        {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "signUp";
-        }
-        else {
-//        if (userService.getByEmail(user.getEmail()) != null) {
-//            return "redirect:/signUp";
-//        }
+        } else {
             user.setHashPassword(encoder.encode(user.getPassword()));
             user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
             userService.addUser(user);

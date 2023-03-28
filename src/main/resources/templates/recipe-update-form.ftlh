@@ -20,19 +20,21 @@
         <h2>Products:</h2>
         <div id="products-container">
             <#list recipe.products as product>
-            <div class="form-row product-row">
-                <div class="col-4">
-                    <label for="product-name-${product_index}">Name:</label>
-                    <input type="text" class="form-control" id="product-name-${product_index}" name="products[${product_index}].name" value="${product.name}" required>
+                <div class="form-row product-row">
+                    <div class="col-4">
+                        <label for="product-name-${product_index}">Name:</label>
+                        <input type="text" class="form-control" id="product-name-${product_index}"
+                               name="products[${product_index}].name" value="${product.name}" required>
+                    </div>
+                    <div class="col-4">
+                        <label for="product-weight-${product_index}">Weight:</label>
+                        <input type="number" class="form-control" id="product-weight-${product_index}"
+                               name="products[${product_index}].weight" value="${product.weight}" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-danger remove-product-button">Remove</button>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <label for="product-weight-${product_index}">Weight:</label>
-                    <input type="number" class="form-control" id="product-weight-${product_index}" name="products[${product_index}].weight" value="${product.weight}" required>
-                </div>
-                <div class="col-4">
-                    <button type="button" class="btn btn-danger remove-product-button">Remove</button>
-                </div>
-            </div>
             </#list>
         </div>
         <button type="button" class="btn btn-secondary" id="add-product-button">Add Product</button>
@@ -48,7 +50,7 @@
     var productCount = ${recipe.products?size};
     var productsContainer = document.getElementById("products-container");
     var addProductButton = document.getElementById("add-product-button");
-    addProductButton.addEventListener("click", function() {
+    addProductButton.addEventListener("click", function () {
         var productDiv = document.createElement("div");
         productDiv.className = "form-row product-row";
         var product_index = productCount;
@@ -67,7 +69,7 @@
         productsContainer.appendChild(productDiv);
         productCount++;
     });
-    productsContainer.addEventListener("click", function(event) {
+    productsContainer.addEventListener("click", function (event) {
         if (event.target.classList.contains("remove-product-button")) {
             event.target.closest(".product-row").remove();
         }
