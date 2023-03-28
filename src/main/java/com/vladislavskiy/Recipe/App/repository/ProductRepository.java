@@ -14,5 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Transactional
     void deleteAllByReceptId(Integer id);
 
-    List<Product> findAllByName(String name);
+    List<Product> findAllByNameContainingIgnoreCase(String name);
 }

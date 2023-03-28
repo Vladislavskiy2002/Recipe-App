@@ -7,9 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Collections;
 
 @Controller
@@ -31,13 +34,20 @@ public class SignUpController {
     }
 
     @PostMapping("/signUp")
-    public String signUpUser(User user) {
-        if (userService.getByEmail(user.getEmail()) != null) {
-            return "redirect:/signUp";
+    public String signUpUser(@Valid User user, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors())
+        {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "signUp";
         }
-        user.setHashPassword(encoder.encode(user.getPassword()));
-        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
-        userService.addUser(user);
-        return "redirect:/mvc/user";
+        else {
+//        if (userService.getByEmail(user.getEmail()) != null) {
+//            return "redirect:/signUp";
+//        }
+            user.setHashPassword(encoder.encode(user.getPassword()));
+            user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
+            userService.addUser(user);
+            return "redirect:/mvc/user";
+        }
     }
 }

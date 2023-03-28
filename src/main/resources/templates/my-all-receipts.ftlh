@@ -30,7 +30,6 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th>ID</th>
             <th>
                 <form method="get" action="/receipt/mySortedByNameRecipes">
                     <#if sortOrder == 'asc'>
@@ -63,7 +62,6 @@
 
         <#list Recepts as recept>
             <tr>
-                <td>${recept.id}</td>
                 <td>${recept.name}</td>
                 <td>${recept.user.name}</td>
                 <td>${recept.description}</td>

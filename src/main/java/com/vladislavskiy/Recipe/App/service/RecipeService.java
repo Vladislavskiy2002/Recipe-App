@@ -18,4 +18,6 @@ public interface RecipeService {
     List<Recept> findAllByUser_IdAndName(Integer id, String name);
 
     List<Recept> findAllByName(final String name);
+
+    List<Recept> findAllReceptsByProductName(final String name);
 }

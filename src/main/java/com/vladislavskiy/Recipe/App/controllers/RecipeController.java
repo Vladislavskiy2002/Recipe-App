@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Controller
@@ -265,7 +263,7 @@ public class RecipeController {
 
         List<Product> products = recepts.stream()
                 .map(recept -> recept.getProducts()).flatMap(products1 -> products1.stream()
-                        .filter(product -> product.getName().equals(name))).collect(Collectors.toList());
+                        .filter(product -> product.getName().toLowerCase().contains(name.toLowerCase())).findFirst().stream()).toList();
 
         List<Recept> receptsByName = new ArrayList<>();
         for (Product product : products) {
@@ -283,11 +281,7 @@ public class RecipeController {
 
     @PostMapping("/allReceipts/findByProductName")
     public String findFromAllReceptByProductName(Principal principal, Model model, String name) {
-        List<Product> products = productService.findAllByName(name);
-        List<Recept> recepts = new ArrayList<>();
-        for (Product product : products) {
-            recepts.add(product.getRecept());
-        }
+        List<Recept> recepts = recipeService.findAllReceptsByProductName(name);
         User user = userService.getByEmail(principal.getName());
         List<Role> roles = user.getRoles().stream().toList();
         model.addAttribute("Recepts", recepts);
@@ -296,12 +290,12 @@ public class RecipeController {
         return "all-receipts";
     }
 
-    @GetMapping("/receipts/findReceptByAuthorName")
+    @GetMapping("/allReceipts/findReceptByAuthorName")
     public String findReceptByAuthor() {
         return "author-name";
     }
 
-    @PostMapping("/receipts/findReceptByAuthorName")
+    @PostMapping("/allReceipts/findReceptByAuthorName")
     public String findReceptByAuthor(Principal principal, Model model, String name) {
         List<User> users = userService.findAllByName(name);
         List<Recept> recepts = new ArrayList<>();

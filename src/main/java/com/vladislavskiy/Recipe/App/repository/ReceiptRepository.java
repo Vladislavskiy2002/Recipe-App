@@ -20,9 +20,9 @@ public interface ReceiptRepository extends JpaRepository<Recept, Integer> {
 
     List<Recept> findAllByUserId(Integer id);
 
-    List<Recept> findAllByName(String name);
+    List<Recept> findAllByNameContainingIgnoreCase(String name);
 
     List<Recept> findAllReceptsByProductsOrderByName(String name);
 
-    List<Recept> findAllByUser_IdAndName(Integer id, String name);
+    List<Recept> findAllByUser_IdAndNameContainingIgnoreCase(Integer id, String name);
 }
